@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>Junky Manga & Manhwa Recommendations</title>
+  <link href="https://fonts.googleapis.com/css?family=Bangers|Roboto:400,700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --discord-bg: #313338;
+      --discord-bg-alt: #232428;
+      --discord-header: #5865f2;
+      --discord-card: #383a40;
+      --discord-card-alt: #2b2d31;
+      --discord-accent: #5865f2;
+      --discord-accent-soft: #4752c4;
+      --discord-text: #f2f3f5;
+      --discord-muted: #b5bac1;
+      --discord-hover: #393c43;
+      --discord-border: #232428;
+      --discord-footer: #232428;
+      --discord-link: #00a8fc;
+      --discord-genre-hover: #404249;
+      --discord-modal-bg: #232428e7;
+      --discord-modal-border: #5865f2;
+    }
+    body {
+      margin: 0;
+      font-family: 'Roboto', Arial, sans-serif;
+      background: var(--discord-bg);
+      color: var(--discord-text);
+      min-height: 100vh;
+    }
+    .hero {
+      background: linear-gradient(135deg, var(--discord-header) 0%, #3b47a0 100%);
+      color: #fff;
+      padding: 60px 20px 40px 20px;
+      text-align: center;
+      box-shadow: 0 4px 24px 0 rgba(32,34,37,0.25);
+    }
+    .hero h1 {
+      font-family: 'Bangers', cursive;
+      font-size: 3rem;
+      margin-bottom: 10px;
+      letter-spacing: 2px;
+      color: #fff;
+      text-shadow: 0 2px 24px #23242866;
+    }
+    .hero p {
+      font-size: 1.3rem;
+      margin-bottom: 30px;
+      color: var(--discord-muted);
+    }
+    .cta-btn {
+      background: var(--discord-accent);
+      color: #fff;
+      font-family: 'Bangers', cursive;
+      font-size: 1.3rem;
+      padding: 16px 34px;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      box-shadow: 0 2px 14px rgba(0,0,0,0.12);
+      transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+      outline: none;
+    }
+    .cta-btn:hover {
+      background: var(--discord-accent-soft);
+      color: #fff;
+      box-shadow: 0 4px 24px rgba(88,101,242,0.18);
+    }
+    .section {
+      max-width: 960px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+    .how-it-works {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      background: var(--discord-card);
+      border-radius: 20px;
+      box-shadow: 0 2px 10px rgba(30,34,40,0.18);
+      padding: 30px 15px;
+      margin-bottom: 40px;
+      gap: 20px;
+      border: 1px solid var(--discord-border);
+    }
+    .how-step {
+      flex: 1 1 200px;
+      min-width: 180px;
+      text-align: center;
+    }
+    .how-step .icon {
+      font-size: 2.5rem;
+      margin-bottom: 12px;
+      color: var(--discord-accent);
+      filter: drop-shadow(0 0 4px #23242888);
+    }
+    .how-step h3 {
+      margin: 0 0 8px 0;
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--discord-text);
+      letter-spacing: 0.5px;
+    }
+    .how-step p {
+      color: var(--discord-muted);
+      font-size: 1rem;
+    }
+    .recommendations {
+      background: var(--discord-card);
+      border-radius: 20px;
+      box-shadow: 0 2px 10px rgba(30,34,40,0.18);
+      padding: 30px 20px 36px 20px;
+      border: 1px solid var(--discord-border);
+    }
+    .recommendations h2 {
+      font-family:'Bangers',cursive;
+      font-size:2rem;
+      color:var(--discord-accent);
+      text-align:center;
+      margin-bottom:28px;
+      letter-spacing: 2px;
+      text-shadow: 0 1px 16px #23242899;
+    }
+    .reco-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 30px;
+      justify-content: center;
+    }
+    .reco-item {
+      width: 170px;
+      background: var(--discord-card-alt);
+      border-radius: 14px;
+      box-shadow: 0 1px 8px rgba(40,40,46,0.14);
+      text-align: center;
+      padding: 15px 10px 18px 10px;
+      transition: transform 0.18s, box-shadow 0.18s, background 0.18s;
+      border: 1.5px solid var(--discord-border);
+    }
+    .reco-item:hover {
+      transform: translateY(-6px) scale(1.04);
+      background: var(--discord-hover);
+      box-shadow: 0 4px 24px rgba(88,101,242,0.12);
+      border-color: var(--discord-accent);
+    }
+    .reco-item img {
+      width: 110px;
+      height: 155px;
+      object-fit: cover;
+      border-radius: 7px;
+      margin-bottom: 10px;
+      background: #26272b;
+      box-shadow: 0 0 6px #23242855;
+      border: 1.5px solid #232428;
+    }
+    .reco-title {
+      font-family: 'Bangers', cursive;
+      font-size: 1.1rem;
+      margin: 7px 0 4px 0;
+      color: var(--discord-accent);
+      letter-spacing: 1px;
+      text-shadow: 0 1px 8px #31333860;
+    }
+    .reco-desc {
+      font-size: 0.97rem;
+      color: var(--discord-muted);
+    }
+    footer {
+      text-align: center;
+      padding: 30px 8px 22px 8px;
+      font-size: 1rem;
+      background: var(--discord-footer);
+      color: var(--discord-muted);
+      margin-top: 50px;
+      border-top: 1px solid #282b30;
+      box-shadow: 0 -2px 20px #23242833;
+    }
+    footer a {
+      color: var(--discord-link);
+      text-decoration: none;
+      margin: 0 8px;
+      font-weight: bold;
+      transition: color 0.2s;
+    }
+    footer a:hover {
+      color: var(--discord-accent);
+      text-decoration: underline;
+    }
+    /* Genre Modal Styles */
+    .genre-modal-bg {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0; top: 0; right: 0; bottom: 0;
+      background: var(--discord-modal-bg);
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s;
+    }
+    .genre-modal-bg.active {
+      display: flex;
+    }
+    .genre-modal {
+      background: var(--discord-card);
+      border-radius: 20px;
+      border: 2px solid var(--discord-modal-border);
+      padding: 36px 32px 30px 32px;
+      box-shadow: 0 8px 32px #0006, 0 1.5px 0px #5865f2;
+      max-width: 360px;
+      width: 90vw;
+      text-align: center;
+      animation: popin 0.22s cubic-bezier(.52,1.72,.51,.93);
+    }
+    @keyframes popin {
+      0% { transform: scale(0.85); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    .genre-modal h3 {
+      font-family: 'Bangers', cursive;
+      color: var(--discord-accent);
+      font-size: 2rem;
+      margin-bottom: 18px;
+      letter-spacing: 1.5px;
+    }
+    .genre-list {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 10px 0;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 14px;
+    }
+    .genre-btn {
+      background: var(--discord-card-alt);
+      color: var(--discord-text);
+      border: 1.5px solid var(--discord-border);
+      font-family: 'Bangers', cursive;
+      font-size: 1.08rem;
+      border-radius: 10px;
+      padding: 10px 22px;
+      min-width: 90px;
+      margin: 0;
+      cursor: pointer;
+      transition: background 0.17s, color 0.15s, border 0.15s;
+      box-shadow: 0 1.5px 5px #0003;
+      outline: none;
+    }
+    .genre-btn:hover, .genre-btn:focus {
+      background: var(--discord-genre-hover);
+      color: var(--discord-accent);
+      border-color: var(--discord-accent);
+    }
+    .close-modal {
+      font-family: 'Bangers', cursive;
+      color: var(--discord-muted);
+      background: none;
+      border: none;
+      font-size: 1.3rem;
+      position: absolute;
+      top: 16px;
+      right: 24px;
+      cursor: pointer;
+      transition: color 0.18s;
+    }
+    .close-modal:hover {
+      color: var(--discord-accent);
+    }
+    .genre-modal {
+      position: relative;
+    }
+    /* Scrollbar styling */
+    ::-webkit-scrollbar {
+      width: 12px;
+      background: var(--discord-bg);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: var(--discord-card);
+      border-radius: 8px;
+      border: 2px solid var(--discord-bg);
+    }
+    ::selection {
+      background: var(--discord-accent);
+      color: #fff;
+    }
+    @media (max-width: 750px) {
+      .reco-list { flex-direction: column; align-items: center; }
+      .how-it-works { flex-direction: column; }
+      .section { padding: 0 6px; }
+      .genre-modal {
+        padding: 28px 5vw 20px 5vw;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="hero">
+    <h1>Junky Manga & Manhwa Recs!</h1>
+    <p>Trashy, addictive, with annoyingly OP mc's – find your next guilty pleasure!</p>
+    <button class="cta-btn" id="genreModalBtn">
+      Find Junk to Read Here!
+    </button>
+  </div>
+
+  <!-- Genre Modal -->
+  <div class="genre-modal-bg" id="genreModalBg" tabindex="-1" aria-hidden="true">
+    <div class="genre-modal" role="dialog" aria-modal="true" aria-labelledby="genreModalTitle">
+      <button class="close-modal" id="genreCloseBtn" title="Close">&times;</button>
+      <h3 id="genreModalTitle">Pick a Genre</h3>
+      <ul class="genre-list">
+        <li><button class="genre-btn">Action</button></li>
+        <li><button class="genre-btn">Adventure</button></li>
+        <li><button class="genre-btn">Comedy</button></li>
+        <li><button class="genre-btn">Fantasy</button></li>
+        <li><button class="genre-btn">Romance</button></li>
+        <li><button class="genre-btn">Drama</button></li>
+        <li><button class="genre-btn">Isekai</button></li>
+        <li><button class="genre-btn">School Life</button></li>
+        <li><button class="genre-btn">Supernatural</button></li>
+        <li><button class="genre-btn">Martial Arts</button></li>
+        <li><button class="genre-btn">Horror</button></li>
+        <li><button class="genre-btn">Slice of Life</button></li>
+      </ul>
+      <div style="font-size:0.98rem;color:var(--discord-muted);margin-top:8px;">Click a genre to see recommendations (coming soon!)</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="how-it-works">
+      <div class="how-step">
+        <div class="icon">👀</div>
+        <h3>1. Browse</h3>
+        <p>Scroll through our wildest, most binge-worthy picks.</p>
+      </div>
+      <div class="how-step">
+        <div class="icon">✨</div>
+        <h3>2. Get Recs</h3>
+        <p>Discover outrageous storylines and overpowered protagonists.</p>
+      </div>
+      <div class="how-step">
+        <div class="icon">📚</div>
+        <h3>3. Read & Enjoy</h3>
+        <p>Laugh, cringe, and get hooked on the best junky series!</p>
+      </div>
+    </div>
+    <!--this is where the main recommendations start, there should only be six here-->
+    <div class="recommendations">
+      <h2>Some Popular Bangers</h2>
+      <div class="reco-list">
+        <div class="reco-item">
+          <img src="https://cdn.myanimelist.net/images/manga/3/222295.jpg" alt="Solo Leveling Cover">
+          <div class="reco-title">Solo Leveling</div>
+          <div class="reco-desc">Overpowered MC, level system, and if you haven't read this, I don't even know how you got here.</div>
+        </div>
+        <div class="reco-item">
+          <img src="https://cdn.myanimelist.net/images/manga/2/278875.jpg" alt="My Little Brother is the Academny's hotshot Cover">
+          <div class="reco-title">My Little Brother is the Academny's hotshot</div>
+          <div class="reco-desc">Dark, with an Overpowered MC, and has more than 90 chapters.</div>
+        </div>
+        <div class="reco-item">
+          <img src="https://cdn.myanimelist.net/images/anime/1712/148299.jpg" alt="The Beginning After the End Cover">
+          <div class="reco-title">The Beginning After the End</div>
+          <div class="reco-desc">An isekai, with a magic school, and a good power system, at over 180 chapters.</div>
+        </div>
+        <div class="reco-item">
+          <img src="https://cdn.myanimelist.net/images/manga/2/302590.jpg" alt="The Rebirth of the Hero’s Party’s Archmage cover">
+          <div class="reco-title">The Rebirth of the Hero’s Party’s Archmage</div>
+          <div class="reco-desc">Smart MC, not too op, has a cool magic system, and takes place in an academy.</div>
+        </div>
+        <div class="reco-item">
+          <img src="https://cdn.myanimelist.net/images/manga/2/280319.jpg" alt="Iron Blooded Sword Hound Cover">
+          <div class="reco-title">Revenge of the Iron Blooded Sword Hound</div>
+          <div class="reco-desc">Regression, OP MC, dark, is over 110 chapters, and has an academy arc.</div>
+        </div>
+        <div class="reco-item">
+          <img src="https://cdn.myanimelist.net/images/manga/3/276384.jpg" alt="The Serial Killer Is Reincarnated into the Another World">
+          <div class="reco-title">The Serial Killer Is Reincarnated into the Another World</div>
+          <div class="reco-desc">Half of the characters are psychopaths, and the main character is underpowered but very smart.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    &copy; 2025 Junky Manga & Manhwa Recs | 
+    <a href="#">About</a> |
+    <a href="https://discord.gg/scP8Z2NKN7">Contact Through Discord</a> |
+    <a href="#">Privacy Policy</a>
+  </footer>
+  <script>
+    // Modal open/close logic
+    const genreBtn = document.getElementById('genreModalBtn');
+    const modalBg = document.getElementById('genreModalBg');
+    const closeBtn = document.getElementById('genreCloseBtn');
+
+    genreBtn.addEventListener('click', () => {
+      modalBg.classList.add('active');
+      modalBg.setAttribute('aria-hidden', 'false');
+      // Focus first genre button for accessibility
+      setTimeout(() => {
+        const firstGenre = modalBg.querySelector('.genre-btn');
+        if(firstGenre) firstGenre.focus();
+      }, 100);
+    });
+
+    closeBtn.addEventListener('click', () => {
+      modalBg.classList.remove('active');
+      modalBg.setAttribute('aria-hidden', 'true');
+      genreBtn.focus();
+    });
+
+    // Close modal on ESC key or click outside modal
+    window.addEventListener('keydown', (e) => {
+      if (modalBg.classList.contains('active') && e.key === 'Escape') {
+        modalBg.classList.remove('active');
+        modalBg.setAttribute('aria-hidden', 'true');
+        genreBtn.focus();
+      }
+    });
+    modalBg.addEventListener('click', (e) => {
+      if (e.target === modalBg) {
+        modalBg.classList.remove('active');
+        modalBg.setAttribute('aria-hidden', 'true');
+        genreBtn.focus();
+      }
+    });
+
+    // Placeholder for future genre click functionality
+    document.querySelectorAll('.genre-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        alert(`Genre: ${btn.textContent}\nRecommendations coming soon!`);
+      });
+    });
+  </script>
+</body>
+</html>
