@@ -491,5 +491,38 @@
       }
     });
   </script>
+    <script>
+  const genreModalBtn = document.getElementById('genreModalBtn');
+  const genreModalBg = document.getElementById('genreModalBg');
+  const genreCloseBtn = document.getElementById('genreCloseBtn');
+
+  genreModalBtn.addEventListener('click', () => {
+    genreModalBg.classList.add('active');
+    genreModalBg.setAttribute('aria-hidden', 'false');
+    genreCloseBtn.focus();
+  });
+
+  genreCloseBtn.addEventListener('click', () => {
+    genreModalBg.classList.remove('active');
+    genreModalBg.setAttribute('aria-hidden', 'true');
+    genreModalBtn.focus();
+  });
+
+  // Allow closing the modal by clicking outside or pressing Escape
+  genreModalBg.addEventListener('click', (e) => {
+    if (e.target === genreModalBg) {
+      genreModalBg.classList.remove('active');
+      genreModalBg.setAttribute('aria-hidden', 'true');
+      genreModalBtn.focus();
+    }
+  });
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && genreModalBg.classList.contains('active')) {
+      genreModalBg.classList.remove('active');
+      genreModalBg.setAttribute('aria-hidden', 'true');
+      genreModalBtn.focus();
+    }
+  });
+</script>
 </body>
 </html>
