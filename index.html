@@ -396,6 +396,17 @@
   </div>
 </div>
 
+<!-- The Beginning After the End Modal -->
+<div id="beginningAfterModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="beginningAfterTitle" aria-hidden="true" style="display:none;">
+  <div class="modal-content" style="max-width: 600px; margin: 10% auto; position: relative;">
+    <button class="close" id="beginningAfterCloseBtn" aria-label="Close" style="position: absolute; top: 12px; right: 18px; font-size: 28px; background: none; border: none; color: var(--discord-text); cursor: pointer;">&times;</button>
+    <h2 id="beginningAfterTitle" style="font-family: 'Bangers', cursive; color: var(--discord-accent); margin-top: 0;">The Beginning After the End</h2>
+    <p><strong>Summary:</strong> A king is reincarnated into a new world full of magic and monsters. He attends a magic academy and fights powerful enemies while uncovering his mysterious past.</p>
+    <p>Read it officially in the US on <a href="https://tapas.io/series/tbate-comic/info" target="_blank" rel="noopener noreferrer" style="color: var(--discord-link);">tapas</a>.</p>
+    <div id="beginningAfterPlayer" style="width: 100%; height: 315px; margin-top: 15px; border-radius: 8px; overflow: hidden;"></div>
+  </div>
+</div>
+
   <footer>
 <footer>
   &copy; 2025 Junky Manga & Manhwa Recs | 
@@ -592,6 +603,63 @@
       closeSoloModal();
     }
   });
+  let beginningAfterPlayer;
+const beginningAfterModal = document.getElementById('beginningAfterModal');
+const beginningAfterCloseBtn = document.getElementById('beginningAfterCloseBtn');
+const beginningAfterRecoItem = document.querySelector('.reco-item img[alt="The Beginning After the End Cover"]').parentElement;
+
+// Initialize YouTube player for "The Beginning After the End"
+function onYouTubeIframeAPIReady() {
+  if (typeof soloPlayer === "undefined") {
+    soloPlayer = new YT.Player('soloPlayer', {
+      videoId: 'KC2eLA_N8Ho',
+      playerVars: {
+        autoplay: 0,
+        controls: 1,
+        modestbranding: 1,
+        rel: 0
+      }
+    });
+  }
+  beginningAfterPlayer = new YT.Player('beginningAfterPlayer', {
+    videoId: '8B6MQGQ8hJ8', // Example video ID (replace with actual if needed)
+    playerVars: {
+      autoplay: 0,
+      controls: 1,
+      modestbranding: 1,
+      rel: 0
+    }
+  });
+}
+
+// Open modal and play video for "The Beginning After the End"
+beginningAfterRecoItem.style.cursor = 'pointer';
+beginningAfterRecoItem.addEventListener('click', () => {
+  beginningAfterModal.style.display = 'block';
+  beginningAfterModal.setAttribute('aria-hidden', 'false');
+  beginningAfterCloseBtn.focus();
+  if (beginningAfterPlayer && beginningAfterPlayer.playVideo) {
+    beginningAfterPlayer.playVideo();
+  }
+});
+
+// Close modal and pause video for "The Beginning After the End"
+function closeBeginningAfterModal() {
+  beginningAfterModal.style.display = 'none';
+  beginningAfterModal.setAttribute('aria-hidden', 'true');
+  beginningAfterRecoItem.focus();
+  if (beginningAfterPlayer && beginningAfterPlayer.pauseVideo) {
+    beginningAfterPlayer.pauseVideo();
+  }
+}
+
+beginningAfterCloseBtn.addEventListener('click', closeBeginningAfterModal);
+
+window.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && beginningAfterModal.style.display === 'block') {
+    closeBeginningAfterModal();
+  }
+});
 </script>
 </body>
 </html>
