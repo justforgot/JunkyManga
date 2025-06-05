@@ -385,125 +385,110 @@
   </div>
 
   <footer>
-    &copy; 2025 Junky Manga & Manhwa Recs | 
-    <a href="#">About</a> |
-    <a href="https://discord.gg/scP8Z2NKN7">Contact Through Discord</a> |
-    <a href="#" onclick="document.getElementById('privacyModal').style.display='block'">Privacy Policy</a>
-  </footer>
-  <script>
-    // Modal open/close logic
-    const genreBtn = document.getElementById('genreModalBtn');
-    const modalBg = document.getElementById('genreModalBg');
-    const closeBtn = document.getElementById('genreCloseBtn');
-
-    genreBtn.addEventListener('click', () => {
-      modalBg.classList.add('active');
-      modalBg.setAttribute('aria-hidden', 'false');
-      // Focus first genre button for accessibility
-      setTimeout(() => {
-        const firstGenre = modalBg.querySelector('.genre-btn');
-        if(firstGenre) firstGenre.focus();
-      }, 100);
-    });
-
-    closeBtn.addEventListener('click', () => {
-      modalBg.classList.remove('active');
-      modalBg.setAttribute('aria-hidden', 'true');
-      genreBtn.focus();
-    });
-
-    // Close modal on ESC key or click outside modal
-    window.addEventListener('keydown', (e) => {
-      if (modalBg.classList.contains('active') && e.key === 'Escape') {
-        modalBg.classList.remove('active');
-        modalBg.setAttribute('aria-hidden', 'true');
-        genreBtn.focus();
-      }
-    });
-    modalBg.addEventListener('click', (e) => {
-      if (e.target === modalBg) {
-        modalBg.classList.remove('active');
-        modalBg.setAttribute('aria-hidden', 'true');
-        genreBtn.focus();
-      }
-    });
-
-<!-- Modal (hidden until link is clicked) -->
-<div id="privacyModal" class="modal">
+<footer>
+  &copy; 2025 Junky Manga & Manhwa Recs | 
+  <a href="#" onclick="event.preventDefault(); document.getElementById('aboutModal').style.display='block'">About</a> |
+  <a href="https://discord.gg/scP8Z2NKN7">Contact Through Discord</a> |
+  <a href="#" id="privacyPolicyLink">Privacy Policy</a>
+</footer>
+  
+  <!-- About Modal -->
+<div id="aboutModal" class="modal">
   <div class="modal-content">
-    <span class="close" onclick="document.getElementById('privacyModal').style.display='none'">&times;</span>
-    <h2>Privacy Policy</h2>
-    <p><strong>Last updated:</strong> June 4, 2025</p>
-    <p>This website helps users discover and track manga and manhwa titles. We do not host or distribute manga chapters directly.</p>
-    <h3>Information We Collect</h3>
-    <ul>
-      <li>Anonymous usage data (e.g., page views, search queries)</li>
-      <li>No personal data like names or emails is required or collected</li>
-    </ul>
-    <h3>Cookies</h3>
-    <p>We may use cookies for analytics and improving your browsing experience.</p>
-    <h3>Third-party Links</h3>
-    <p>Links to third-party manga sites may be provided. We are not responsible for their content or privacy practices.</p>
-    <h3>Changes to this Policy</h3>
-    <p>We may update this privacy policy from time to time. Updates will be posted on this page.</p>
+    <span class="close" onclick="document.getElementById('aboutModal').style.display='none'">&times;</span>
+    <h2>About Us</h2>
+    <p>We help manga and manhwa fans discover new titles, track their reading progress, and find where to read their favorite series online.</p>
+    <p>This site does not host or distribute any manga or manhwa chapters. Instead, it serves as a guide to help you explore your next great read!</p>
   </div>
 </div>
 
-<!-- Styles -->
-<style>
-  footer a {
-    color: #00ffff; /* Match your original link style (adjust if needed) */
-    text-decoration: none;
-  }
+  <!-- Privacy Policy Modal -->
+  <div id="privacyModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="privacyTitle" aria-hidden="true">
+    <div class="modal-content">
+      <span class="close" id="privacyCloseBtn" role="button" aria-label="Close privacy policy">&times;</span>
+      <h2 id="privacyTitle">Privacy Policy</h2>
+      <p><strong>Last updated:</strong> June 4, 2025</p>
+      <p>This website helps users discover and track manga and manhwa titles. We do not host or distribute manga chapters directly.</p>
+      <h3>Information We Collect</h3>
+      <ul>
+        <li>Anonymous usage data (e.g., page views, search queries)</li>
+        <li>No personal data like names or emails is required or collected</li>
+      </ul>
+      <h3>Cookies</h3>
+      <p>We may use cookies for analytics and improving your browsing experience.</p>
+      <h3>Third-party Links</h3>
+      <p>Links to third-party manga sites may be provided. We are not responsible for their content or privacy practices.</p>
+      <h3>Changes to this Policy</h3>
+      <p>We may update this privacy policy from time to time. Updates will be posted on this page.</p>
+    </div>
+  </div>
 
-  footer a:hover {
-    text-decoration: underline;
-  }
-
+  <style>
+  /* Modal styles */
   .modal {
     display: none;
     position: fixed;
     z-index: 1000;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
+    left: 0; top: 0;
+    width: 100%; height: 100%;
     overflow: auto;
     background-color: rgba(0,0,0,0.6);
   }
-
   .modal-content {
-    background-color: #fff;
+    background-color: var(--discord-card);
     margin: 10% auto;
     padding: 20px;
     border-radius: 6px;
     width: 90%;
     max-width: 600px;
     font-family: sans-serif;
+    position: relative;
+    color: var(--discord-text);
   }
-
   .close {
     float: right;
     font-size: 24px;
     font-weight: bold;
     cursor: pointer;
+    color: var(--discord-text);
   }
-
   .close:hover {
-    color: red;
+    color: var(--discord-accent);
   }
-</style>
+  </style>
 
-<!-- Script to close modal when clicking outside of it -->
-<script>
-  window.onclick = function(event) {
-    const modal = document.getElementById('privacyModal');
-    if (event.target === modal) {
-      modal.style.display = "none";
-    }
-  }
-</script>
-      });
+  <script>
+    const privacyLink = document.getElementById('privacyPolicyLink');
+    const privacyModal = document.getElementById('privacyModal');
+    const privacyCloseBtn = document.getElementById('privacyCloseBtn');
+
+    privacyLink.addEventListener('click', (e) => {
+      e.preventDefault();
+      privacyModal.style.display = 'block';
+      privacyModal.setAttribute('aria-hidden', 'false');
+      privacyCloseBtn.focus();
+    });
+
+    privacyCloseBtn.addEventListener('click', () => {
+      privacyModal.style.display = 'none';
+      privacyModal.setAttribute('aria-hidden', 'true');
+      privacyLink.focus();
+    });
+
+    window.addEventListener('click', (e) => {
+      if (e.target === privacyModal) {
+        privacyModal.style.display = 'none';
+        privacyModal.setAttribute('aria-hidden', 'true');
+        privacyLink.focus();
+      }
+    });
+
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && privacyModal.style.display === 'block') {
+        privacyModal.style.display = 'none';
+        privacyModal.setAttribute('aria-hidden', 'true');
+        privacyLink.focus();
+      }
     });
   </script>
 </body>
