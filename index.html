@@ -473,6 +473,60 @@
   </div>
 </div>
 
+<!-- My Little Brother is the Academy's hotshot Modal -->
+<div id="littleBrotherModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="littleBrotherTitle" aria-hidden="true" style="display:none;">
+  <div class="modal-content" style="max-width: 600px; margin: 10% auto; position: relative;">
+    <button class="close" id="littleBrotherCloseBtn" aria-label="Close" style="position: absolute; top: 12px; right: 18px; font-size: 28px; background: none; border: none; color: var(--discord-text); cursor: pointer;">&times;</button>
+    <h2 id="littleBrotherTitle" style="font-family: 'Bangers', cursive; color: var(--discord-accent); margin-top: 0;">My Little Brother is the Academy's hotshot</h2>
+    <p>Dark, with an Overpowered MC, and has more than 90 chapters.</p>
+  </div>
+</div>
+
+<!-- The Rebirth of the Hero’s Party’s Archmage Modal -->
+<div id="archmageModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="archmageTitle" aria-hidden="true" style="display:none;">
+  <div class="modal-content" style="max-width: 600px; margin: 10% auto; position: relative;">
+    <button class="close" id="archmageCloseBtn" aria-label="Close" style="position: absolute; top: 12px; right: 18px; font-size: 28px; background: none; border: none; color: var(--discord-text); cursor: pointer;">&times;</button>
+    <h2 id="archmageTitle" style="font-family: 'Bangers', cursive; color: var(--discord-accent); margin-top: 0;">The Rebirth of the Hero’s Party’s Archmage</h2>
+    <p>Smart MC, not too op, has a cool magic system, and takes place in an academy.</p>
+  </div>
+</div>
+
+<!-- Revenge of the Iron Blooded Sword Hound Modal -->
+<div id="ironBloodedModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="ironBloodedTitle" aria-hidden="true" style="display:none;">
+  <div class="modal-content" style="max-width: 600px; margin: 10% auto; position: relative;">
+    <button class="close" id="ironBloodedCloseBtn" aria-label="Close" style="position: absolute; top: 12px; right: 18px; font-size: 28px; background: none; border: none; color: var(--discord-text); cursor: pointer;">&times;</button>
+    <h2 id="ironBloodedTitle" style="font-family: 'Bangers', cursive; color: var(--discord-accent); margin-top: 0;">Revenge of the Iron Blooded Sword Hound</h2>
+    <p>Regression, OP MC, dark, is over 110 chapters, and has an academy arc.</p>
+  </div>
+</div>
+
+<!-- The Serial Killer Is Reincarnated into the Another World Modal -->
+<div id="serialKillerModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="serialKillerTitle" aria-hidden="true" style="display:none;">
+  <div class="modal-content" style="max-width: 600px; margin: 10% auto; position: relative;">
+    <button class="close" id="serialKillerCloseBtn" aria-label="Close" style="position: absolute; top: 12px; right: 18px; font-size: 28px; background: none; border: none; color: var(--discord-text); cursor: pointer;">&times;</button>
+    <h2 id="serialKillerTitle" style="font-family: 'Bangers', cursive; color: var(--discord-accent); margin-top: 0;">Revenge of the Iron Blooded Sword Hound</h2>
+    <p>Regression, OP MC, dark, is over 110 chapters, and has an academy arc.</p>
+  </div>
+</div>
+
+<!-- I’m the Evil Lord of an Intergalactic Empire! Modal -->
+<div id="evilLordModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="evilLordTitle" aria-hidden="true" style="display:none;">
+  <div class="modal-content" style="max-width: 600px; margin: 10% auto; position: relative;">
+    <button class="close" id="evilLordCloseBtn" aria-label="Close" style="position: absolute; top: 12px; right: 18px; font-size: 28px; background: none; border: none; color: var(--discord-text); cursor: pointer;">&times;</button>
+    <h2 id="evilLordTitle" style="font-family: 'Bangers', cursive; color: var(--discord-accent); margin-top: 0;">I’m the Evil Lord of an Intergalactic Empire!</h2>
+    <p>An isekai with an overpowered protagonist, that has a short academy arc, swordsmanship, and mechs.</p>
+  </div>
+</div>
+
+<!-- The Greatest Estate Developer Modal -->
+<div id="greatestEstateModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="greatestEstateTitle" aria-hidden="true" style="display:none;">
+  <div class="modal-content" style="max-width: 600px; margin: 10% auto; position: relative;">
+    <button class="close" id="greatestEstateCloseBtn" aria-label="Close" style="position: absolute; top: 12px; right: 18px; font-size: 28px; background: none; border: none; color: var(--discord-text); cursor: pointer;">&times;</button>
+    <h2 id="greatestEstateTitle" style="font-family: 'Bangers', cursive; color: var(--discord-accent); margin-top: 0;">The Greatest Estate Developer</h2>
+    <p>Water is Good, Water is Lloyd, Lloyd is Good.</p>
+  </div>
+</div>
+
   <footer>
 <footer>
   &copy; 2025 Junky Manga & Manhwa Recs | 
@@ -726,6 +780,87 @@
       closeBeginningAfterModal();
     }
   });
+</script>
+
+<script>
+// Helper function to setup modal open/close for given image alt and modal ids
+function setupModal(imageAlt, modalId, closeBtnId) {
+  const recoItemImg = document.querySelector(`.reco-item img[alt="${imageAlt}"]`);
+  const modal = document.getElementById(modalId);
+  const closeBtn = document.getElementById(closeBtnId);
+
+  if (!recoItemImg || !modal || !closeBtn) return;
+
+  // Set cursor to pointer
+  recoItemImg.parentElement.style.cursor = 'pointer';
+
+  // Open modal on click
+  recoItemImg.parentElement.addEventListener('click', () => {
+    modal.style.display = 'block';
+    modal.setAttribute('aria-hidden', 'false');
+    closeBtn.focus();
+  });
+
+  // Close modal function
+  function closeModal() {
+    modal.style.display = 'none';
+    modal.setAttribute('aria-hidden', 'true');
+    recoItemImg.parentElement.focus();
+  }
+
+  closeBtn.addEventListener('click', closeModal);
+
+  // Close modal when clicking outside content
+  window.addEventListener('click', (e) => {
+    if (e.target === modal) {
+      closeModal();
+    }
+  });
+
+  // Close modal on Escape key
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal.style.display === 'block') {
+      closeModal();
+    }
+  });
+}
+
+// Setup modals for other manga (no videos)
+setupModal(
+  "My Little Brother is the Academny's hotshot Cover",
+  "littleBrotherModal",
+  "littleBrotherCloseBtn"
+);
+
+setupModal(
+  "The Rebirth of the Hero’s Party’s Archmage cover",
+  "archmageModal",
+  "archmageCloseBtn"
+);
+
+setupModal(
+  "Iron Blooded Sword Hound Cover",
+  "ironBloodedModal",
+  "ironBloodedCloseBtn"
+);
+
+setupModal(
+  "The Serial Killer Is Reincarnated into the Another World",
+  "serialKillerModal",
+  "serialKillerCloseBtn"
+);
+
+setupModal(
+  "I’m the Evil Lord of an Intergalactic Empire! cover",
+  "evilLordModal",
+  "evilLordCloseBtn"
+);
+
+setupModal(
+  "The Greatest Estate Developer Cover",
+  "greatestEstateModal",
+  "greatestEstateCloseBtn"
+);
 </script>
 </body>
 </html>
