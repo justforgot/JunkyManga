@@ -501,6 +501,16 @@
     </div>
   </div>
 
+<script>
+  const aboutModal = document.getElementById('aboutModal');
+
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && aboutModal.style.display === 'block') {
+      aboutModal.style.display = 'none';
+    }
+  });
+</script>
+
   <style>
   /* Modal styles */
   .modal {
@@ -706,5 +716,7 @@
     }
   });
 </script>
+</body>
+</html>
 </body>
 </html>
