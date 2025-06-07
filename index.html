@@ -361,20 +361,15 @@
       <button class="close-modal" id="genreCloseBtn" title="Close">&times;</button>
       <h3 id="genreModalTitle">Pick a Genre</h3>
       <ul class="genre-list">
-        <li><button class="genre-btn">Action</button></li>
-        <li><button class="genre-btn">Adventure</button></li>
-        <li><button class="genre-btn">Comedy</button></li>
-        <li><button class="genre-btn">Fantasy</button></li>
-        <li><button class="genre-btn">Romance</button></li>
-        <li><button class="genre-btn">Drama</button></li>
-        <li><button class="genre-btn">Isekai</button></li>
-        <li><button class="genre-btn">School Life</button></li>
-        <li><button class="genre-btn">Supernatural</button></li>
-        <li><button class="genre-btn">Martial Arts</button></li>
-        <li><button class="genre-btn">Horror</button></li>
-        <li><button class="genre-btn">Slice of Life</button></li>
-      </ul>
-      <div style="font-size:0.98rem;color:var(--discord-muted);margin-top:8px;">Click a genre to see recommendations (coming soon!)</div>
+     <ul class="genre-list">
+  <li><button class="genre-btn">Isekai</button></li>
+  <li><button class="genre-btn">Regression</button></li>
+  <li><button class="genre-btn">Romance</button></li>
+  <li><button class="genre-btn">All/Search</button></li>
+  <li><button class="genre-btn">Sumprise Me!</button></li>
+  <!-- Removed the rest -->
+</ul>
+      <div style="font-size:0.98rem;color:var(--discord-muted);margin-top:8px;">Click a genre to see recommendations (This feature is still in development)</div>
     </div>
   </div>
 
@@ -624,12 +619,21 @@
 <script>
   const aboutModal = document.getElementById('aboutModal');
 
+  // Close on Escape key
   window.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && aboutModal.style.display === 'block') {
       aboutModal.style.display = 'none';
     }
   });
+
+  // Close when clicking outside modal content
+  aboutModal.addEventListener('click', (e) => {
+    if (e.target === aboutModal) {
+      aboutModal.style.display = 'none';
+    }
+  });
 </script>
+
 
   <style>
   /* Modal styles */
