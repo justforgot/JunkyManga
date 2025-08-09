@@ -1,925 +1,183 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1.0">
-  <title>Junky Manga & Manhwa Recommendations</title>
-  <link rel="icon" href="favicon.png" type="image/png" />
-  <link href="https://fonts.googleapis.com/css?family=Bangers|Roboto:400,700&display=swap" rel="stylesheet">
-  <style>
-  .how-step {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>JunkyManga.xyz – Your Manga Recommendation Hub</title>
+<style>
+  /* Discord-like colors */
+  :root {
+    --blurple: #5865f2;
+    --blurple-dark: #4752c4;
+    --dark-bg: #2f3136;
+    --darker-bg: #202225;
+    --light-text: #dcddde;
+    --muted-text: #b9bbbe;
+  }
 
-.how-step .text-content {
-  display: flex;
-  flex-direction: row; /* side by side */
-  gap: 12px;           /* spacing between h3 and p */
-  align-items: center; /* vertical centering */
-  justify-content: center;
-  min-height: 90px;    /* uniform height */
-  text-align: left;
-}
+  body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    background-color: var(--darker-bg);
+    color: var(--light-text);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
 
-.how-step .text-content h3 {
-  margin: 0;
-  white-space: nowrap; /* prevent heading from wrapping */
-  flex-shrink: 0;      /* keep heading width */
-}
+  header {
+    background-color: var(--dark-bg);
+    padding: 1rem 2rem;
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: white;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+  }
 
-.how-step .text-content p {
-  margin: 0;
-  color: var(--discord-muted);
-  flex: 1;             /* paragraph takes remaining space */
-}
-    :root {
-      --discord-bg: #313338;
-      --discord-bg-alt: #232428;
-      --discord-header: #5865f2;
-      --discord-card: #383a40;
-      --discord-card-alt: #2b2d31;
-      --discord-accent: #5865f2;
-      --discord-accent-soft: #4752c4;
-      --discord-text: #f2f3f5;
-      --discord-muted: #b5bac1;
-      --discord-hover: #393c43;
-      --discord-border: #232428;
-      --discord-footer: #232428;
-      --discord-link: #00a8fc;
-      --discord-genre-hover: #404249;
-      --discord-modal-bg: #232428e7;
-      --discord-modal-border: #5865f2;
-    }
-    body {
-      margin: 0;
-      font-family: 'Roboto', Arial, sans-serif;
-      background: var(--discord-bg);
-      color: var(--discord-text);
-      min-height: 100vh;
-    }
-    .hero {
-      background: linear-gradient(135deg, var(--discord-header) 0%, #3b47a0 100%);
-      color: #fff;
-      padding: 60px 20px 40px 20px;
-      text-align: center;
-      box-shadow: 0 4px 24px 0 rgba(32,34,37,0.25);
-    }
-    .hero h1 {
-      font-family: 'Bangers', cursive;
-      font-size: 3rem;
-      margin-bottom: 10px;
-      letter-spacing: 2px;
-      color: #fff;
-      text-shadow: 0 2px 24px #23242866;
-    }
-    .hero p {
-      font-size: 1.3rem;
-      margin-bottom: 30px;
-      color: var(--discord-muted);
-    }
-    .cta-btn {
-      background: var(--discord-accent);
-      color: #fff;
-      font-family: 'Bangers', cursive;
-      font-size: 1.3rem;
-      padding: 16px 34px;
-      border: none;
-      border-radius: 30px;
-      cursor: pointer;
-      box-shadow: 0 2px 14px rgba(0,0,0,0.12);
-      transition: background 0.2s, color 0.2s, box-shadow 0.2s;
-      outline: none;
-    }
-    .cta-btn:hover {
-      background: var(--discord-accent-soft);
-      color: #fff;
-      box-shadow: 0 4px 24px rgba(88,101,242,0.18);
-    }
-    .section {
-      max-width: 960px;
-      margin: 40px auto;
-      padding: 0 20px;
-    }
-.how-it-works {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  background: var(--discord-card);
-  border-radius: 20px;
-  box-shadow: 0 2px 10px rgba(30,34,40,0.18);
-  padding: 30px 15px;
-  margin-bottom: 40px;
-  gap: 20px;
-  border: 1px solid var(--discord-border);
-  align-items: stretch; /* equal height for flex children */
-}
+  main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem;
+    gap: 1.5rem;
+  }
 
-.how-step {
-  flex: 1 1 200px;
-  min-width: 180px;
-  text-align: center;
+  select {
+    background-color: var(--dark-bg);
+    color: var(--light-text);
+    padding: 0.6rem;
+    font-size: 1rem;
+    border: none;
+    border-radius: 6px;
+    outline: none;
+  }
 
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
+  button {
+    background-color: var(--blurple);
+    color: white;
+    border: none;
+    padding: 0.6rem 1.2rem;
+    font-size: 1rem;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
 
-  /* Make all .how-step stretch to fill the height */
-  height: 100%;
-  box-sizing: border-box;
-}
+  button:hover {
+    background-color: var(--blurple-dark);
+  }
 
-.how-step h3 {
-  margin: 0 0 8px;
-  font-size: 1.2rem;
-  font-weight: 700;
-  color: var(--discord-text);
-  letter-spacing: 0.5px;
-  flex-shrink: 0;
-}
+  .result-box {
+    background-color: var(--dark-bg);
+    padding: 1rem 1.5rem;
+    border-radius: 8px;
+    max-width: 500px;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  }
 
-.how-step p {
-  color: var(--discord-muted);
-  font-size: 1rem;
-  margin: 0;
-  flex-grow: 1; /* take all remaining vertical space */
-  display: flex;
-  align-items: center; /* vertically center text if short */
-  justify-content: center;
-  text-align: center;
-  padding: 0 8px;
-}
-    .recommendations {
-      background: var(--discord-card);
-      border-radius: 20px;
-      box-shadow: 0 2px 10px rgba(30,34,40,0.18);
-      padding: 30px 20px 36px 20px;
-      border: 1px solid var(--discord-border);
-    }
-    .recommendations h2 {
-      font-family:'Bangers',cursive;
-      font-size:2rem;
-      color:var(--discord-accent);
-      text-align:center;
-      margin-bottom:28px;
-      letter-spacing: 2px;
-      text-shadow: 0 1px 16px #23242899;
-    }
-    .reco-list {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 30px;
-      justify-content: center;
-    }
-    .reco-item {
-      width: 170px;
-      background: var(--discord-card-alt);
-      border-radius: 14px;
-      box-shadow: 0 1px 8px rgba(40,40,46,0.14);
-      text-align: center;
-      padding: 15px 10px 18px 10px;
-      transition: transform 0.18s, box-shadow 0.18s, background 0.18s;
-      border: 1.5px solid var(--discord-border);
-    }
-    .reco-item:hover {
-      transform: translateY(-6px) scale(1.04);
-      background: var(--discord-hover);
-      box-shadow: 0 4px 24px rgba(88,101,242,0.12);
-      border-color: var(--discord-accent);
-    }
-    .reco-item img {
-      width: 110px;
-      height: 155px;
-      object-fit: cover;
-      border-radius: 7px;
-      margin-bottom: 10px;
-      background: #26272b;
-      box-shadow: 0 0 6px #23242855;
-      border: 1.5px solid #232428;
-    }
-    .reco-title {
-      font-family: 'Bangers', cursive;
-      font-size: 1.1rem;
-      margin: 7px 0 4px 0;
-      color: var(--discord-accent);
-      letter-spacing: 1px;
-      text-shadow: 0 1px 8px #31333860;
-    }
-    .reco-desc {
-      font-size: 0.97rem;
-      color: var(--discord-muted);
-    }
-    footer {
-      text-align: center;
-      padding: 30px 8px 22px 8px;
-      font-size: 1rem;
-      background: var(--discord-footer);
-      color: var(--discord-muted);
-      margin-top: 50px;
-      border-top: 1px solid #282b30;
-      box-shadow: 0 -2px 20px #23242833;
-    }
-    footer a {
-      color: var(--discord-link);
-      text-decoration: none;
-      margin: 0 8px;
-      font-weight: bold;
-      transition: color 0.2s;
-    }
-    footer a:hover {
-      color: var(--discord-accent);
-      text-decoration: underline;
-    }
-    /* Genre Modal Styles */
-    .genre-modal-bg {
-      display: none;
-      position: fixed;
-      z-index: 1000;
-      left: 0; top: 0; right: 0; bottom: 0;
-      background: var(--discord-modal-bg);
-      align-items: center;
-      justify-content: center;
-      transition: background 0.2s;
-    }
-    .genre-modal-bg.active {
-      display: flex;
-    }
-    .genre-modal {
-      background: var(--discord-card);
-      border-radius: 20px;
-      border: 2px solid var(--discord-modal-border);
-      padding: 36px 32px 30px 32px;
-      box-shadow: 0 8px 32px #0006, 0 1.5px 0px #5865f2;
-      max-width: 360px;
-      width: 90vw;
-      text-align: center;
-      animation: popin 0.22s cubic-bezier(.52,1.72,.51,.93);
-    }
-    @keyframes popin {
-      0% { transform: scale(0.85); opacity: 0; }
-      100% { transform: scale(1); opacity: 1; }
-    }
-    .genre-modal h3 {
-      font-family: 'Bangers', cursive;
-      color: var(--discord-accent);
-      font-size: 2rem;
-      margin-bottom: 18px;
-      letter-spacing: 1.5px;
-    }
-    .genre-list {
-      list-style: none;
-      padding: 0;
-      margin: 0 0 10px 0;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 14px;
-    }
-    .genre-btn {
-      background: var(--discord-card-alt);
-      color: var(--discord-text);
-      border: 1.5px solid var(--discord-border);
-      font-family: 'Bangers', cursive;
-      font-size: 1.08rem;
-      border-radius: 10px;
-      padding: 10px 22px;
-      min-width: 90px;
-      margin: 0;
-      cursor: pointer;
-      transition: background 0.17s, color 0.15s, border 0.15s;
-      box-shadow: 0 1.5px 5px #0003;
-      outline: none;
-    }
-    .genre-btn:hover, .genre-btn:focus {
-      background: var(--discord-genre-hover);
-      color: var(--discord-accent);
-      border-color: var(--discord-accent);
-    }
-    .close-modal {
-      font-family: 'Bangers', cursive;
-      color: var(--discord-muted);
-      background: none;
-      border: none;
-      font-size: 1.3rem;
-      position: absolute;
-      top: 16px;
-      right: 24px;
-      cursor: pointer;
-      transition: color 0.18s;
-    }
-    .close-modal:hover {
-      color: var(--discord-accent);
-    }
-    .genre-modal {
-      position: relative;
-    }
-    /* Scrollbar styling */
-    ::-webkit-scrollbar {
-      width: 12px;
-      background: var(--discord-bg);
-    }
-    ::-webkit-scrollbar-thumb {
-      background: var(--discord-card);
-      border-radius: 8px;
-      border: 2px solid var(--discord-bg);
-    }
-    ::selection {
-      background: var(--discord-accent);
-      color: #fff;
-    }
-    @media (max-width: 750px) {
-      .reco-list { flex-direction: column; align-items: center; }
-      .how-it-works { flex-direction: column; }
-      .section { padding: 0 6px; }
-      .genre-modal {
-        padding: 28px 5vw 20px 5vw;
-      }
-    }
-    
-    /* Change size of the books emoji only */
-.how-it-works .how-step:nth-child(3) .icon {
-  font-size: 50px; /* adjust as needed */
-  line-height: 1;
-}
+  .result-box img {
+    max-width: 200px;
+    margin-top: 10px;
+    border-radius: 6px;
+  }
 
-  </style>
+  footer {
+    background-color: var(--dark-bg);
+    padding: 0.5rem;
+    text-align: center;
+    font-size: 0.9rem;
+    color: var(--muted-text);
+  }
+</style>
 </head>
 <body>
-  <div class="hero">
-    <h1>Junky Manga & Manhwa Recs!</h1>
-    <p>Trashy, addictive, with annoyingly OP mc's – find your next guilty pleasure!</p>
-    <button class="cta-btn" id="genreModalBtn">
-      Find Junk to Read Here!
-    </button>
-  </div>
 
-  <!-- Genre Modal -->
-  <div class="genre-modal-bg" id="genreModalBg" tabindex="-1" aria-hidden="true">
-    <div class="genre-modal" role="dialog" aria-modal="true" aria-labelledby="genreModalTitle">
-      <button class="close-modal" id="genreCloseBtn" title="Close">&times;</button>
-      <h3 id="genreModalTitle">Pick a Genre</h3>
-      <ul class="genre-list">
-     <ul class="genre-list">
-  <li><button class="genre-btn">Isekai</button></li>
-  <li><button class="genre-btn">Regression</button></li>
-  <li><button class="genre-btn">Romance</button></li>
-  <li><button class="genre-btn">All/Search</button></li>
-  <li><button class="genre-btn">Sumprise Me!</button></li>
-  <!-- Removed the rest -->
-</ul>
-      <div style="font-size:0.98rem;color:var(--discord-muted);margin-top:8px;">Click a genre to see recommendations (This feature is still in development)</div>
-    </div>
-  </div>
+<header>📚 JunkyManga.xyz</header>
 
-  <div class="section">
-    <div class="how-it-works">
-      <div class="how-step">
-       <a href="https://streamable.com/lf027o" target="_blank" rel="noopener noreferrer" class="icon" style="text-decoration: none; color: var(--discord-accent); cursor: pointer;">
-  <div style="width: 50px; height: 50px; display: inline-block; overflow: visible; vertical-align: middle; position: relative;">
-    <img 
-      src="https://media.discordapp.net/attachments/938585793805578290/1380098876282765322/image.png?ex=6842a4bd&is=6841533d&hm=996bf6b84425fdfe81701f5263ff3c768ec191211d702320716cdab17827aad3&=&format=webp&quality=lossless" 
-      alt="Eyeball Static" 
-      id="eyeballHoverImg"
-      style="width: 50px; height: 50px; object-fit: contain; transition: transform 0.3s ease;"
-    >
-    <img 
-      src="https://media.discordapp.net/attachments/1138239203159838730/1380111709381070888/402aef60d9e2df22a5517157ca65cddc-removebg-preview.png?ex=6842b0b0&is=68415f30&hm=ec90c32e52402b1561c233f78d8cd2301b24221fb22cbe4bcd9f930bff23b328&=&format=webp&quality=lossless" 
-      alt="Popup Image" 
-      id="popupImg"
-      style="position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%); width: 150px; height: auto; display: none; pointer-events: none; z-index: 10; user-select: none;"
-    >
-  </div>
-</a>
+<main>
+  <h2>Find Your Next Manga</h2>
+  <label for="genre">Choose a genre:</label>
+  <select id="genre">
+    <option value="1">Action</option>
+    <option value="2">Adventure</option>
+    <option value="4">Comedy</option>
+    <option value="8">Drama</option>
+    <option value="10">Fantasy</option>
+    <option value="22">Romance</option>
+    <option value="30">Sports</option>
+    <option value="37">Supernatural</option>
+    <option value="62">Isekai</option>
+  </select>
+  <button id="recommendBtn">Get Recommendation</button>
+
+  <div id="result" class="result-box" style="display: none;"></div>
+</main>
+
+<footer>© 2025 JunkyManga.xyz – Made for manga lovers</footer>
 
 <script>
-  const img = document.getElementById('eyeballHoverImg');
-  const popup = document.getElementById('popupImg');
-  const staticSrc = 'https://media.discordapp.net/attachments/938585793805578290/1380098876282765322/image.png?ex=6842a4bd&is=6841533d&hm=996bf6b84425fdfe81701f5263ff3c768ec191211d702320716cdab17827aad3&=&format=webp&quality=lossless';
-  const gifSrc = 'https://media.tenor.com/F0uEWXLHEHwAAAAj/eyes-noto-color-emoji.gif';
+  const resultBox = document.getElementById("result");
+  let currentGenre = null;
+  let remainingManga = [];
 
-  img.addEventListener('mouseenter', () => {
-    img.src = gifSrc;
-    img.style.transform = 'scale(1.2)';
-    popup.style.display = 'block';
-  });
-  img.addEventListener('mouseleave', () => {
-    img.src = staticSrc;
-    img.style.transform = 'scale(1)';
-    popup.style.display = 'none';
-  });
-</script>
-  
-</a>
-</a>
-        <h3>1. Browse</h3>
-        <p>Scroll through our wildest, most binge-worthy picks.</p>
-      </div>
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      <div class="how-step">
-  <div class="icon" style="position: relative; width: 40px; height: 50px; margin: 0 auto;">
-    <img 
-      src="https://64.media.tumblr.com/96702234ff6a92ce2060b206943c3405/1ba90b97996d3468-59/s400x600/f14beb0b2d9633fa39066406945ecec8f89c8833.gif" 
-      alt="Sparkle Static" 
-      id="sparkleImg"
-      style="width: 50px; height: 50px; object-fit: contain; cursor: default; transition: transform 0.3s ease;"
-    />
-  </div>
-  <h3>2. Get Recommendations</h3>
-  <p>Discover outrageous storylines and overpowered protagonists.</p>
-</div>
-      <div class="how-step">
-        <div class="icon">📚</div>
-        <h3>3. Read & Enjoy</h3>
-        <p>Laugh, cringe, and get hooked on the best junky series!</p>
-      </div>
-    </div>
-    <!--this is where the main recommendations start, there should only be eight here-->
- <div class="recommendations">
-  <h2>Some Popular Bangers</h2>
-  <div class="reco-list">
-    <div class="reco-item">
-      <img src="https://cdn.myanimelist.net/images/manga/3/222295.jpg" alt="Solo Leveling Cover">
-      <div class="reco-title">Solo Leveling</div>
-      <div class="reco-desc">Overpowered MC, level system, and if you haven't read this, I don't even know how you got here.</div>
-    </div>
-    <div class="reco-item">
-      <img src="https://cdn.myanimelist.net/images/manga/2/278875.jpg" alt="My Little Brother is the Academny's hotshot Cover">
-      <div class="reco-title">My Little Brother is the Academny's hotshot</div>
-      <div class="reco-desc">Dark, with an Overpowered MC, and has more than 90 chapters.</div>
-    </div>
-    <div class="reco-item">
-      <img src="https://cdn.myanimelist.net/images/anime/1712/148299.jpg" alt="The Beginning After the End Cover">
-      <div class="reco-title">The Beginning After the End</div>
-      <div class="reco-desc">An isekai, with a magic school, and a good power system, at over 180 chapters.</div>
-    </div>
-    <div class="reco-item">
-      <img src="https://cdn.myanimelist.net/images/manga/2/302590.jpg" alt="The Rebirth of the Hero’s Party’s Archmage cover">
-      <div class="reco-title">The Rebirth of the Hero’s Party’s Archmage</div>
-      <div class="reco-desc">Smart MC, not too op, has a cool magic system, and takes place in an academy.</div>
-    </div>
-    <div class="reco-item">
-      <img src="https://cdn.myanimelist.net/images/manga/2/280319.jpg" alt="Iron Blooded Sword Hound Cover">
-      <div class="reco-title">Revenge of the Iron Blooded Sword Hound</div>
-      <div class="reco-desc">Regression, OP MC, dark, is over 110 chapters, and has an academy arc.</div>
-    </div>
-    <div class="reco-item">
-      <img src="https://cdn.myanimelist.net/images/manga/3/276384.jpg" alt="The Serial Killer Is Reincarnated into the Another World">
-      <div class="reco-title">The Serial Killer Is Reincarnated into the Another World</div>
-      <div class="reco-desc">Half of the characters are psychopaths, and the main character is underpowered but very smart.</div>
-    </div>
-    <!-- I’m the Evil Lord of an Intergalactic Empire! -->
-    <div class="reco-item">
-      <img src="https://cdn.myanimelist.net/images/anime/1785/147514l.jpg" alt="I’m the Evil Lord of an Intergalactic Empire! cover">
-      <div class="reco-title">I’m the Evil Lord of an Intergalactic Empire!</div>
-      <div class="reco-desc">An isekai with an overpowered protaginist, that has a short academy arc, swordsmanship, and mechs.</div>
-    </div>
-    <!-- The Greatest Estate Developer -->
-    <div class="reco-item">
-      <img src="https://cdn.myanimelist.net/images/manga/1/263543.jpg" alt="The Greatest Estate Developer Cover">
-      <div class="reco-title">The Greatest Estate Developer</div>
-      <div class="reco-desc">Water is Good, Water is Lloyd, Lloyd is Good.</div>
-    </div>
-  </div>
-</div>
-  
-<!-- Solo Leveling Modal -->
-<div id="soloLevelingModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="soloLevelingTitle" aria-hidden="true" style="display:none;">
-  <div class="modal-content" style="max-width: 600px; margin: 10% auto; position: relative;">
-    <button class="close" id="soloLevelingCloseBtn" aria-label="Close" style="position: absolute; top: 12px; right: 18px; font-size: 28px; background: none; border: none; color: var(--discord-text); cursor: pointer;">&times;</button>
-    <h2 id="soloLevelingTitle" style="font-family: 'Bangers', cursive; color: var(--discord-accent); margin-top: 0;">Solo Leveling</h2>
-    <p><strong>Summary:</strong> In a world where hunters with magical abilities fight deadly monsters, Sung Jin-Woo is the weakest hunter of all. After a mysterious event, he gains the ability to level up in strength, becoming the strongest hunter and uncovering secrets behind the gates.</p>
-    <p>Read it officially in the US on <a href="https://www.tappytoon.com/en/book/solo-leveling-official" target="_blank" rel="noopener noreferrer" style="color: var(--discord-link);">tappytoon</a>.</p>
-    <div id="soloPlayer" style="width: 100%; height: 315px; margin-top: 15px; border-radius: 8px; overflow: hidden;"></div>
-  </div>
-</div>
+  document.getElementById("recommendBtn").addEventListener("click", async () => {
+    const genreId = document.getElementById("genre").value;
 
-<!-- The Beginning After the End Modal -->
-<div id="beginningAfterModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="beginningAfterTitle" aria-hidden="true" style="display:none;">
-  <div class="modal-content" style="max-width: 600px; margin: 10% auto; position: relative;">
-    <button class="close" id="beginningAfterCloseBtn" aria-label="Close" style="position: absolute; top: 12px; right: 18px; font-size: 28px; background: none; border: none; color: var(--discord-text); cursor: pointer;">&times;</button>
-    <h2 id="beginningAfterTitle" style="font-family: 'Bangers', cursive; color: var(--discord-accent); margin-top: 0;">The Beginning After the End</h2>
-    <p><strong>Summary:</strong> A king is reincarnated into a new world full of magic and monsters. He attends a magic academy and fights powerful enemies while uncovering his mysterious past.</p>
-    <p>Read it officially in the US on <a href="https://tapas.io/series/tbate-comic/info" target="_blank" rel="noopener noreferrer" style="color: var(--discord-link);">tapas</a>.</p>
-    <div id="beginningAfterPlayer" style="width: 100%; height: 315px; margin-top: 15px; border-radius: 8px; overflow: hidden;"></div>
-  </div>
-</div>
+    // If genre changed, fetch new list
+    if (genreId !== currentGenre) {
+      currentGenre = genreId;
+      resultBox.style.display = "block";
+      resultBox.innerHTML = "Fetching recommendation...";
 
-<!-- My Little Brother is the Academy's hotshot Modal -->
-<div id="littleBrotherModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="littleBrotherTitle" aria-hidden="true" style="display:none;">
-  <div class="modal-content" style="max-width: 600px; margin: 10% auto; position: relative;">
-    <button class="close" id="littleBrotherCloseBtn" aria-label="Close" style="position: absolute; top: 12px; right: 18px; font-size: 28px; background: none; border: none; color: var(--discord-text); cursor: pointer;">&times;</button>
-    <h2 id="littleBrotherTitle" style="font-family: 'Bangers', cursive; color: var(--discord-accent); margin-top: 0;">My Little Brother is the Academy's hotshot</h2>
-    <p><strong>Summary:</strong> A dark fantasy manhwa featuring an overpowered main character who navigates political intrigue, rivalries, and battles at a prestigious academy. The story unfolds with thrilling action and complex character relationships.</p>
-    <p>Read it unofficially in the US on <a href="https://manhuaus.com/manga/my-little-brother-is-the-academys-hotshot/" target="_blank" rel="noopener noreferrer" style="color: var(--discord-link);">manhuas.com</a>.</p>
-  </div>
-</div>
+      try {
+        const res = await fetch(`https://api.jikan.moe/v4/manga?genres=${genreId}&order_by=score&sort=desc&limit=20`);
+        const data = await res.json();
 
-<!-- The Rebirth of the Hero’s Party’s Archmage Modal -->
-<div id="archmageModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="archmageTitle" aria-hidden="true" style="display:none;">
-  <div class="modal-content" style="max-width: 600px; margin: 10% auto; position: relative;">
-    <button class="close" id="archmageCloseBtn" aria-label="Close" style="position: absolute; top: 12px; right: 18px; font-size: 28px; background: none; border: none; color: var(--discord-text); cursor: pointer;">&times;</button>
-    <h2 id="archmageTitle" style="font-family: 'Bangers', cursive; color: var(--discord-accent); margin-top: 0;">The Rebirth of the Hero’s Party’s Archmage</h2>
-    <p><strong>Summary:</strong> Follow the story of a smart and determined protagonist who is reincarnated and uses a unique magic system to change his fate. Set in an academy environment, it features strategic battles and deep character development.</p>
-    <p>Read it unofficially in the US on <a href="https://manhuaus.com/manga/the-rebirth-of-the-heros-partys-archmage/" target="_blank" rel="noopener noreferrer" style="color: var(--discord-link);">manhuas.com</a>.</p>
-  </div>
-</div>
+        if (!data.data || data.data.length === 0) {
+          resultBox.innerHTML = "No manga found for this genre.";
+          remainingManga = [];
+          return;
+        }
 
-<!-- Revenge of the Iron Blooded Sword Hound Modal -->
-<div id="ironBloodedModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="ironBloodedTitle" aria-hidden="true" style="display:none;">
-  <div class="modal-content" style="max-width: 600px; margin: 10% auto; position: relative;">
-    <button class="close" id="ironBloodedCloseBtn" aria-label="Close" style="position: absolute; top: 12px; right: 18px; font-size: 28px; background: none; border: none; color: var(--discord-text); cursor: pointer;">&times;</button>
-    <h2 id="ironBloodedTitle" style="font-family: 'Bangers', cursive; color: var(--discord-accent); margin-top: 0;">Revenge of the Iron Blooded Sword Hound</h2>
-    <p><strong>Summary:</strong> After regressing to his younger self, the protagonist seeks revenge with overwhelming power. This dark fantasy manhwa features intense battles, an OP main character, and an engaging academy arc.</p>
-    <p>Read it unofficially in the US on <a href="https://manhuaus.com/manga/revenge-of-the-iron-blooded-sword-hound/" target="_blank" rel="noopener noreferrer" style="color: var(--discord-link);">manhuas.com</a>.</p>
-  </div>
-</div>
-
-<!-- The Serial Killer Is Reincarnated into Another World Modal -->
-<div id="serialKillerModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="serialKillerTitle" aria-hidden="true" style="display:none;">
-  <div class="modal-content" style="max-width: 600px; margin: 10% auto; position: relative;">
-    <button class="close" id="serialKillerCloseBtn" aria-label="Close" style="position: absolute; top: 12px; right: 18px; font-size: 28px; background: none; border: none; color: var(--discord-text); cursor: pointer;">&times;</button>
-    <h2 id="serialKillerTitle" style="font-family: 'Bangers', cursive; color: var(--discord-accent); margin-top: 0;">The Serial Killer Is Reincarnated into Another World</h2>
-    <p><strong>Summary:</strong> An underpowered but intelligent protagonist is reincarnated into a brutal new world. Filled with psychopaths and dark themes, this manhwa challenges the MC to survive using cunning over strength.</p>
-    <p>Read it unofficially in the US on <a href="https://mangadex.org/title/3eaabe03-d2bd-43f3-af71-bd1db4ab564a/isekai-executioner-the-serial-killer-in-another-world?tab=chapters" target="_blank" rel="noopener noreferrer" style="color: var(--discord-link);">mangadex</a>.</p>
-  </div>
-</div>
-
-<!-- I’m the Evil Lord of an Intergalactic Empire! Modal -->
-<div id="evilLordModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="evilLordTitle" aria-hidden="true" style="display:none;">
-  <div class="modal-content" style="max-width: 600px; margin: 10% auto; position: relative;">
-    <button class="close" id="evilLordCloseBtn" aria-label="Close" style="position: absolute; top: 12px; right: 18px; font-size: 28px; background: none; border: none; color: var(--discord-text); cursor: pointer;">&times;</button>
-    <h2 id="evilLordTitle" style="font-family: 'Bangers', cursive; color: var(--discord-accent); margin-top: 0;">I’m the Evil Lord of an Intergalactic Empire!</h2>
-    <p><strong>Summary:</strong> Follow the adventures of an overpowered protagonist who is transported to another world where he becomes the evil lord of a vast intergalactic empire. The story features a short academy arc, intense swordsmanship, and futuristic mechs.</p>
-    <p>Read it unofficially in the US on <a href="https://mangadex.org/title/63b2dc67-f55c-4f4a-899f-cedd77721bcf/ore-wa-seikan-kokka-no-akutoku-ryoshu?tab=art" target="_blank" rel="noopener noreferrer" style="color: var(--discord-link);">mangadex</a>.</p>
-  </div>
-</div>
-
-<!-- The Greatest Estate Developer Modal -->
-<div id="greatestEstateModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="greatestEstateTitle" aria-hidden="true" style="display:none;">
-  <div class="modal-content" style="max-width: 600px; margin: 10% auto; position: relative;">
-    <button class="close" id="greatestEstateCloseBtn" aria-label="Close" style="position: absolute; top: 12px; right: 18px; font-size: 28px; background: none; border: none; color: var(--discord-text); cursor: pointer;">&times;</button>
-    <h2 id="greatestEstateTitle" style="font-family: 'Bangers', cursive; color: var(--discord-accent); margin-top: 0;">The Greatest Estate Developer</h2>
-    <p><strong>Summary:</strong> A captivating story centered on Lloyd, a protagonist who uses his unique abilities and wit to develop and manage estates. Expect intriguing plots, character growth, and plenty of water-related adventures.</p>
-    <p>Read it officially in the US on <a href="https://www.webtoons.com/en/fantasy/the-greatest-estate-developer/list?title_no=3596" target="_blank" rel="noopener noreferrer" style="color: var(--discord-link);">Webtoons</a>.</p>
-  </div>
-</div>
-
-  <footer>
-<footer>
-  &copy; 2025 Junky Manga & Manhwa Recs | 
-  <a href="#" onclick="event.preventDefault(); document.getElementById('aboutModal').style.display='block'">About</a> |
-  <a href="https://discord.gg/scP8Z2NKN7">Contact Through Discord</a> |
-  <a href="#" id="privacyPolicyLink">Privacy Policy</a>
-</footer>
-  
-  <!-- About Modal -->
-<div id="aboutModal" class="modal">
-  <div class="modal-content">
-    <span class="close" onclick="document.getElementById('aboutModal').style.display='none'">&times;</span>
-    <h2>About Us</h2>
-    <p>We help manga and manhwa fans discover new titles, track their reading progress, and find where to read their favorite series online.</p>
-    <p>This site does not host or distribute any manga or manhwa chapters. Instead, it serves as a guide to help you explore your next great read!</p>
-  </div>
-</div>
-
-  <!-- Privacy Policy Modal -->
-  <div id="privacyModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="privacyTitle" aria-hidden="true">
-    <div class="modal-content">
-      <span class="close" id="privacyCloseBtn" role="button" aria-label="Close privacy policy">&times;</span>
-      <h2 id="privacyTitle">Privacy Policy</h2>
-      <p><strong>Last updated:</strong> June 4, 2025</p>
-      <p>This website helps users discover and track manga and manhwa titles. We do not host or distribute manga chapters directly.</p>
-      <h3>Information We Collect</h3>
-      <ul>
-        <li>Anonymous usage data (e.g., page views, search queries)</li>
-        <li>No personal data like names or emails is required or collected</li>
-      </ul>
-      <h3>Cookies</h3>
-      <p>We may use cookies for analytics and improving your browsing experience.</p>
-      <h3>Third-party Links</h3>
-      <p>Links to third-party manga sites may be provided. We are not responsible for their content or privacy practices.</p>
-      <h3>Changes to this Policy</h3>
-      <p>We may update this privacy policy from time to time. Updates will be posted on this page.</p>
-    </div>
-  </div>
-
-<script>
-  const aboutModal = document.getElementById('aboutModal');
-
-  // Close on Escape key
-  window.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && aboutModal.style.display === 'block') {
-      aboutModal.style.display = 'none';
-    }
-  });
-
-  // Close when clicking outside modal content
-  aboutModal.addEventListener('click', (e) => {
-    if (e.target === aboutModal) {
-      aboutModal.style.display = 'none';
-    }
-  });
-</script>
-
-
-  <style>
-  /* Modal styles */
-  .modal {
-    display: none;
-    position: fixed;
-    z-index: 1000;
-    left: 0; top: 0;
-    width: 100%; height: 100%;
-    overflow: auto;
-    background-color: rgba(0,0,0,0.6);
-  }
-  .modal-content {
-    background-color: var(--discord-card);
-    margin: 10% auto;
-    padding: 20px;
-    border-radius: 6px;
-    width: 90%;
-    max-width: 600px;
-    font-family: sans-serif;
-    position: relative;
-    color: var(--discord-text);
-  }
-  .close {
-    float: right;
-    font-size: 24px;
-    font-weight: bold;
-    cursor: pointer;
-    color: var(--discord-text);
-  }
-  .close:hover {
-    color: var(--discord-accent);
-  }
-  </style>
-
-  <script>
-    const privacyLink = document.getElementById('privacyPolicyLink');
-    const privacyModal = document.getElementById('privacyModal');
-    const privacyCloseBtn = document.getElementById('privacyCloseBtn');
-
-    privacyLink.addEventListener('click', (e) => {
-      e.preventDefault();
-      privacyModal.style.display = 'block';
-      privacyModal.setAttribute('aria-hidden', 'false');
-      privacyCloseBtn.focus();
-    });
-
-    privacyCloseBtn.addEventListener('click', () => {
-      privacyModal.style.display = 'none';
-      privacyModal.setAttribute('aria-hidden', 'true');
-      privacyLink.focus();
-    });
-
-    window.addEventListener('click', (e) => {
-      if (e.target === privacyModal) {
-        privacyModal.style.display = 'none';
-        privacyModal.setAttribute('aria-hidden', 'true');
-        privacyLink.focus();
+        remainingManga = [...data.data];
+      } catch (err) {
+        resultBox.innerHTML = "Error fetching data. Please try again.";
+        console.error(err);
+        return;
       }
-    });
+    }
 
-    window.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && privacyModal.style.display === 'block') {
-        privacyModal.style.display = 'none';
-        privacyModal.setAttribute('aria-hidden', 'true');
-        privacyLink.focus();
+    // If no remaining, reset list
+    if (remainingManga.length === 0) {
+      resultBox.innerHTML = "You've seen all recommendations for this genre! Starting over...";
+      try {
+        const res = await fetch(`https://api.jikan.moe/v4/manga?genres=${currentGenre}&order_by=score&sort=desc&limit=20`);
+        const data = await res.json();
+        remainingManga = [...data.data];
+      } catch (err) {
+        console.error(err);
+        return;
       }
-    });
-  </script>
-    <script>
-  const genreModalBtn = document.getElementById('genreModalBtn');
-  const genreModalBg = document.getElementById('genreModalBg');
-  const genreCloseBtn = document.getElementById('genreCloseBtn');
-
-  genreModalBtn.addEventListener('click', () => {
-    genreModalBg.classList.add('active');
-    genreModalBg.setAttribute('aria-hidden', 'false');
-    genreCloseBtn.focus();
-  });
-
-  genreCloseBtn.addEventListener('click', () => {
-    genreModalBg.classList.remove('active');
-    genreModalBg.setAttribute('aria-hidden', 'true');
-    genreModalBtn.focus();
-  });
-
-  // Allow closing the modal by clicking outside or pressing Escape
-  genreModalBg.addEventListener('click', (e) => {
-    if (e.target === genreModalBg) {
-      genreModalBg.classList.remove('active');
-      genreModalBg.setAttribute('aria-hidden', 'true');
-      genreModalBtn.focus();
     }
-  });
-  window.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && genreModalBg.classList.contains('active')) {
-      genreModalBg.classList.remove('active');
-      genreModalBg.setAttribute('aria-hidden', 'true');
-      genreModalBtn.focus();
-    }
-  });
-</script>
-<script src="https://www.youtube.com/iframe_api"></script>
-<script>
-  let soloPlayer;
-  let beginningAfterPlayer;
 
-  // Initialize both YouTube players when API is ready
-  function onYouTubeIframeAPIReady() {
-    soloPlayer = new YT.Player('soloPlayer', {
-      videoId: 'I6JIwjWOhnQ', // Solo Leveling video ID
-      playerVars: {
-        autoplay: 0,
-        controls: 1,
-        modestbranding: 1,
-        rel: 0
-      }
-    });
+    // Pick random from remaining
+    const index = Math.floor(Math.random() * remainingManga.length);
+    const pick = remainingManga.splice(index, 1)[0]; // remove from list
 
-    beginningAfterPlayer = new YT.Player('beginningAfterPlayer', {
-      videoId: 'KC2eLA_N8Ho', // The Beginning After the End video ID
-      playerVars: {
-        autoplay: 0,
-        controls: 1,
-        modestbranding: 1,
-        rel: 0
-      }
-    });
-  }
-
-  // Solo Leveling modal elements
-  const soloModal = document.getElementById('soloLevelingModal');
-  const soloCloseBtn = document.getElementById('soloLevelingCloseBtn');
-  const soloRecoItem = document.querySelector('.reco-item img[alt="Solo Leveling Cover"]').parentElement;
-
-  soloRecoItem.style.cursor = 'pointer';
-  soloRecoItem.addEventListener('click', () => {
-    soloModal.style.display = 'block';
-    soloModal.setAttribute('aria-hidden', 'false');
-    soloCloseBtn.focus();
-    if (soloPlayer && soloPlayer.playVideo) {
-      soloPlayer.playVideo();
-    }
-  });
-
-  function closeSoloModal() {
-    soloModal.style.display = 'none';
-    soloModal.setAttribute('aria-hidden', 'true');
-    soloRecoItem.focus();
-    if (soloPlayer && soloPlayer.pauseVideo) {
-      soloPlayer.pauseVideo();
-    }
-  }
-
-  soloCloseBtn.addEventListener('click', closeSoloModal);
-
-  window.addEventListener('click', (e) => {
-    if (e.target === soloModal) {
-      closeSoloModal();
-    }
-  });
-
-  window.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && soloModal.style.display === 'block') {
-      closeSoloModal();
-    }
-  });
-
-  // The Beginning After the End modal elements
-  const beginningAfterModal = document.getElementById('beginningAfterModal');
-  const beginningAfterCloseBtn = document.getElementById('beginningAfterCloseBtn');
-  const beginningAfterRecoItem = document.querySelector('.reco-item img[alt="The Beginning After the End Cover"]').parentElement;
-
-  beginningAfterRecoItem.style.cursor = 'pointer';
-  beginningAfterRecoItem.addEventListener('click', () => {
-    beginningAfterModal.style.display = 'block';
-    beginningAfterModal.setAttribute('aria-hidden', 'false');
-    beginningAfterCloseBtn.focus();
-    if (beginningAfterPlayer && beginningAfterPlayer.playVideo) {
-      beginningAfterPlayer.playVideo();
-    }
-  });
-
-  function closeBeginningAfterModal() {
-    beginningAfterModal.style.display = 'none';
-    beginningAfterModal.setAttribute('aria-hidden', 'true');
-    beginningAfterRecoItem.focus();
-    if (beginningAfterPlayer && beginningAfterPlayer.pauseVideo) {
-      beginningAfterPlayer.pauseVideo();
-    }
-  }
-
-  beginningAfterCloseBtn.addEventListener('click', closeBeginningAfterModal);
-
-  window.addEventListener('click', (e) => {
-    if (e.target === beginningAfterModal) {
-      closeBeginningAfterModal();
-    }
-  });
-
-  window.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && beginningAfterModal.style.display === 'block') {
-      closeBeginningAfterModal();
-    }
+    resultBox.innerHTML = `
+      <strong>${pick.title}</strong><br>
+      <em>Score: ${pick.score ?? "N/A"}</em><br>
+      ${pick.synopsis ? pick.synopsis.substring(0, 200) + "..." : "No description available."}
+      <br>
+      <a href="${pick.url}" target="_blank" style="color: var(--blurple);">More Info</a>
+      <br>
+      ${pick.images?.jpg?.image_url ? `<img src="${pick.images.jpg.image_url}" alt="${pick.title} cover">` : ""}
+    `;
   });
 </script>
 
-<script>
-// Helper function to setup modal open/close for given image alt and modal ids
-function setupModal(imageAlt, modalId, closeBtnId) {
-  const recoItemImg = document.querySelector(`.reco-item img[alt="${imageAlt}"]`);
-  const modal = document.getElementById(modalId);
-  const closeBtn = document.getElementById(closeBtnId);
-
-  if (!recoItemImg || !modal || !closeBtn) return;
-
-  // Set cursor to pointer
-  recoItemImg.parentElement.style.cursor = 'pointer';
-
-  // Open modal on click
-  recoItemImg.parentElement.addEventListener('click', () => {
-    modal.style.display = 'block';
-    modal.setAttribute('aria-hidden', 'false');
-    closeBtn.focus();
-  });
-
-  // Close modal function
-  function closeModal() {
-    modal.style.display = 'none';
-    modal.setAttribute('aria-hidden', 'true');
-    recoItemImg.parentElement.focus();
-  }
-
-  closeBtn.addEventListener('click', closeModal);
-
-  // Close modal when clicking outside content
-  window.addEventListener('click', (e) => {
-    if (e.target === modal) {
-      closeModal();
-    }
-  });
-
-  // Close modal on Escape key
-  window.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && modal.style.display === 'block') {
-      closeModal();
-    }
-  });
-}
-
-// Setup modals for other manga (no videos)
-setupModal(
-  "My Little Brother is the Academny's hotshot Cover",
-  "littleBrotherModal",
-  "littleBrotherCloseBtn"
-);
-
-setupModal(
-  "The Rebirth of the Hero’s Party’s Archmage cover",
-  "archmageModal",
-  "archmageCloseBtn"
-);
-
-setupModal(
-  "Iron Blooded Sword Hound Cover",
-  "ironBloodedModal",
-  "ironBloodedCloseBtn"
-);
-
-setupModal(
-  "The Serial Killer Is Reincarnated into the Another World",
-  "serialKillerModal",
-  "serialKillerCloseBtn"
-);
-
-setupModal(
-  "I’m the Evil Lord of an Intergalactic Empire! cover",
-  "evilLordModal",
-  "evilLordCloseBtn"
-);
-
-setupModal(
-  "The Greatest Estate Developer Cover",
-  "greatestEstateModal",
-  "greatestEstateCloseBtn"
-);
-</script>
 </body>
 </html>
