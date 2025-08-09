@@ -1,105 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>JunkyManga.xyz – Your Manga Recommendation Hub</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JunkyManga.xyz</title>
 <style>
-  /* Discord-like colors */
-  :root {
-    --blurple: #5865f2;
-    --blurple-dark: #4752c4;
-    --dark-bg: #2f3136;
-    --darker-bg: #202225;
-    --light-text: #dcddde;
-    --muted-text: #b9bbbe;
-  }
-
   body {
-    margin: 0;
-    font-family: 'Segoe UI', Tahoma, sans-serif;
-    background-color: var(--darker-bg);
-    color: var(--light-text);
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-  }
-
-  header {
-    background-color: var(--dark-bg);
-    padding: 1rem 2rem;
+    font-family: Arial, sans-serif;
+    background-color: #2f3136;
+    color: #ffffff;
     text-align: center;
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: white;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+    padding: 20px;
   }
-
-  main {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 2rem;
-    gap: 1.5rem;
+  h1 {
+    color: #7289da;
   }
-
+  select, button {
+    padding: 10px;
+    margin: 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+  }
   select {
-    background-color: var(--dark-bg);
-    color: var(--light-text);
-    padding: 0.6rem;
-    font-size: 1rem;
-    border: none;
-    border-radius: 6px;
-    outline: none;
+    background-color: #40444b;
+    color: #ffffff;
   }
-
   button {
-    background-color: var(--blurple);
+    background-color: #7289da;
     color: white;
-    border: none;
-    padding: 0.6rem 1.2rem;
-    font-size: 1rem;
-    border-radius: 6px;
     cursor: pointer;
-    transition: background-color 0.2s ease;
   }
-
   button:hover {
-    background-color: var(--blurple-dark);
+    background-color: #5b6eae;
   }
-
-  .result-box {
-    background-color: var(--dark-bg);
-    padding: 1rem 1.5rem;
+  .manga {
+    background-color: #40444b;
     border-radius: 8px;
-    max-width: 500px;
-    text-align: center;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    padding: 15px;
+    margin-top: 20px;
   }
-
-  .result-box img {
+  img {
     max-width: 200px;
+    border-radius: 5px;
     margin-top: 10px;
-    border-radius: 6px;
-  }
-
-  footer {
-    background-color: var(--dark-bg);
-    padding: 0.5rem;
-    text-align: center;
-    font-size: 0.9rem;
-    color: var(--muted-text);
   }
 </style>
 </head>
 <body>
-
-<header>📚 JunkyManga.xyz</header>
-
-<main>
-  <h2>Find Your Next Manga</h2>
-  <label for="genre">Choose a genre:</label>
+  <h1>JunkyManga.xyz</h1>
+  <p>Select a genre and get a manga recommendation!</p>
+  
   <select id="genre">
     <option value="1">Action</option>
     <option value="2">Adventure</option>
@@ -111,73 +62,66 @@
     <option value="37">Supernatural</option>
     <option value="62">Isekai</option>
   </select>
-  <button id="recommendBtn">Get Recommendation</button>
-
-  <div id="result" class="result-box" style="display: none;"></div>
-</main>
-
-<footer>© 2025 JunkyManga.xyz – Made for manga lovers</footer>
+  
+  <button id="recommendBtn">Recommend</button>
+  
+  <div id="recommendation" class="manga" style="display:none;">
+    <h2 id="mangaTitle"></h2>
+    <img id="mangaImage" alt="">
+    <p id="mangaSynopsis"></p>
+    <a id="mangaLink" href="#" target="_blank" style="color:#7289da;">Read more</a>
+  </div>
 
 <script>
-  const resultBox = document.getElementById("result");
-  let currentGenre = null;
-  let remainingManga = [];
+  const btn = document.getElementById('recommendBtn');
+  const genreSelect = document.getElementById('genre');
+  const recDiv = document.getElementById('recommendation');
+  const titleEl = document.getElementById('mangaTitle');
+  const imgEl = document.getElementById('mangaImage');
+  const synopsisEl = document.getElementById('mangaSynopsis');
+  const linkEl = document.getElementById('mangaLink');
 
-  document.getElementById("recommendBtn").addEventListener("click", async () => {
-    const genreId = document.getElementById("genre").value;
+  // Store already recommended manga IDs
+  let recommendedIDs = [];
 
-    // If genre changed, fetch new list
-    if (genreId !== currentGenre) {
-      currentGenre = genreId;
-      resultBox.style.display = "block";
-      resultBox.innerHTML = "Fetching recommendation...";
+  async function getRecommendation() {
+    const genre = genreSelect.value;
+    const url = `https://api.jikan.moe/v4/manga?genres=${genre}&order_by=score&sort=desc&limit=25`;
 
-      try {
-        const res = await fetch(`https://api.jikan.moe/v4/manga?genres=${genreId}&order_by=score&sort=desc&limit=20`);
-        const data = await res.json();
+    try {
+      const res = await fetch(url);
+      if (!res.ok) throw new Error("API request failed");
+      const data = await res.json();
 
-        if (!data.data || data.data.length === 0) {
-          resultBox.innerHTML = "No manga found for this genre.";
-          remainingManga = [];
-          return;
-        }
-
-        remainingManga = [...data.data];
-      } catch (err) {
-        resultBox.innerHTML = "Error fetching data. Please try again.";
-        console.error(err);
+      // Filter out already recommended manga
+      const freshManga = data.data.filter(m => !recommendedIDs.includes(m.mal_id));
+      if (freshManga.length === 0) {
+        alert("No new recommendations left for this genre!");
         return;
       }
+
+      // Pick a random manga
+      const manga = freshManga[Math.floor(Math.random() * freshManga.length)];
+
+      // Save ID to avoid duplicates
+      recommendedIDs.push(manga.mal_id);
+
+      // Update UI
+      titleEl.textContent = manga.title;
+      imgEl.src = manga.images.jpg.image_url;
+      imgEl.alt = manga.title;
+      synopsisEl.textContent = manga.synopsis || "No synopsis available.";
+      linkEl.href = manga.url;
+
+      recDiv.style.display = 'block';
+
+    } catch (err) {
+      console.error(err);
+      alert("Failed to fetch recommendations. Please try again later.");
     }
+  }
 
-    // If no remaining, reset list
-    if (remainingManga.length === 0) {
-      resultBox.innerHTML = "You've seen all recommendations for this genre! Starting over...";
-      try {
-        const res = await fetch(`https://api.jikan.moe/v4/manga?genres=${currentGenre}&order_by=score&sort=desc&limit=20`);
-        const data = await res.json();
-        remainingManga = [...data.data];
-      } catch (err) {
-        console.error(err);
-        return;
-      }
-    }
-
-    // Pick random from remaining
-    const index = Math.floor(Math.random() * remainingManga.length);
-    const pick = remainingManga.splice(index, 1)[0]; // remove from list
-
-    resultBox.innerHTML = `
-      <strong>${pick.title}</strong><br>
-      <em>Score: ${pick.score ?? "N/A"}</em><br>
-      ${pick.synopsis ? pick.synopsis.substring(0, 200) + "..." : "No description available."}
-      <br>
-      <a href="${pick.url}" target="_blank" style="color: var(--blurple);">More Info</a>
-      <br>
-      ${pick.images?.jpg?.image_url ? `<img src="${pick.images.jpg.image_url}" alt="${pick.title} cover">` : ""}
-    `;
-  });
+  btn.addEventListener('click', getRecommendation);
 </script>
-
 </body>
 </html>
